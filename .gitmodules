@@ -22,3 +22,18 @@
 [submodule "chef/cookbooks/pacman"]
 	path = chef/cookbooks/pacman
 	url = git@github.com:ScholzVolkmer/pacman.git
+[submodule "chef/cookbooks/aws"]
+	path = chef/cookbooks/aws
+	url = https://github.com/opscode-cookbooks/aws.git
+[submodule "chef/cookbooks/postgresql"]
+	path = chef/cookbooks/postgresql
+	url = git@github.com:ScholzVolkmer/postgresql.git
+[submodule "chef/cookbooks/xfs"]
+	path = chef/cookbooks/xfs
+	url = https://github.com/opscode-cookbooks/xfs.git
+[submodule "chef/cookbooks/mysql-chef_gem"]
+	path = chef/cookbooks/mysql-chef_gem
+	url = https://github.com/opscode-cookbooks/mysql-chef_gem.git
+[submodule "chef/cookbooks/database"]
+	path = chef/cookbooks/database
+	url = https://github.com/opscode-cookbooks/database.git
