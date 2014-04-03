@@ -12,6 +12,8 @@ if defined? node['databases'] then
 
                 mysql_database db_name do
                   connection mysql_connection_info
+                  encoding "utf8"
+                  #todo: move it somehow to vagrant file
                   action :create
                 end
 
