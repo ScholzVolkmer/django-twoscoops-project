@@ -73,7 +73,7 @@ Vagrant.configure("2") do |config|
   #   puppet.manifest_file  = "init.pp"
   # end
 
-  # Enable provisioning with chef solo, specifying a cookbooks path, roles
+  # Enable provisioning with chef solo, specifying a cochecf gettiokbooks path, roles
   # path, and data_bags path (all relativehttp://intro.hellofutu.re/ to this Vagrantfile), and adding
   # some recipes and/or roles.
   #
@@ -84,6 +84,8 @@ Vagrant.configure("2") do |config|
     chef.add_recipe "apt"
     #chef.add_recipe "apache2"
     chef.add_recipe "mysql::server"
+    chef.add_recipe "database::mysql"
+    chef.add_recipe "mysql-databases"
     #chef.add_role "web"
   
     #	   # You may also specify custom JSON attributes:
@@ -92,7 +94,10 @@ Vagrant.configure("2") do |config|
                   "server_root_password" => "password",
                   "server_repl_password" => "password",
                   "server_debian_password" => "password"
-                 }
+                 },
+      "databases" => {
+                      "create" => ["django"]
+                     },
     }
 
   end
