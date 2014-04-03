@@ -18,6 +18,9 @@ build
 .pydevproject
 .settings
 
+# Eclipse
+.idea
+
 # Linux Editors
 *~
 \#*\#
@@ -29,6 +32,7 @@ tramp
 .\#*
 *.swp
 *.swo
+.directory
 
 # Mac
 .DS_Store
@@ -38,3 +42,5 @@ tramp
 Thumbs.db
 Desktop.ini
 
+# Vagrant
+.vagrant
