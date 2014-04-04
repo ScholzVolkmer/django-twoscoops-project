@@ -96,7 +96,14 @@ Vagrant.configure("2") do |config|
                   "server_debian_password" => "password"
                  },
       "databases" => {
-                      "create" => ["django"]
+                      "create" => ["django"],
+                      "grant" => [
+                                  {
+                                   "user" => "django",
+                                   "password" => "password",
+                                   "host" => "localhost"
+                                  }
+                                 ]
                      },
     }
 
