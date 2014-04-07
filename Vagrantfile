@@ -86,6 +86,8 @@ Vagrant.configure("2") do |config|
     chef.add_recipe "mysql::server"
     chef.add_recipe "database::mysql"
     chef.add_recipe "mysql-databases"
+    chef.add_recipe "git"
+    chef.add_recipe "django_project_template"
     #chef.add_role "web"
   
     #	   # You may also specify custom JSON attributes:
@@ -105,6 +107,12 @@ Vagrant.configure("2") do |config|
                                   }
                                  ]
                      },
+      "project" => {
+                    #"repository"=> "file:///home/sergey/bus/dj/repo/{{project_name}}",
+                    "repository" => "https://github.com/ScholzVolkmer/django-twoscoops-project.git",
+                    #"repository" => "../",
+                    "branch"=>"develop"
+                    }
     }
 
   end
