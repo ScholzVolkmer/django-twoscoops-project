@@ -35,11 +35,3 @@ if defined? node['databases'] then
         end
     end
 end
-
-# add root - password
-mysql_database_user 'root' do
-  connection mysql_connection_info
-  password 'password'
-  host '%'
-  action :grant
-end
