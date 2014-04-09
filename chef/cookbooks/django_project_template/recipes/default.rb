@@ -11,9 +11,10 @@ application "django_project_template" do
     django do
         #packages ["redis"]
         requirements "requirements.txt"
+        project_name "{{project_name}}"
         #settings_template "settings.py.erb"
         #debug true
-        collectstatic "build_static --noinput"
+        #collectstatic "build_static --noinput"
         #database do
         #    database "packaginator"
         #    engine "postgresql_psycopg2"
