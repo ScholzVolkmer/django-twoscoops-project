@@ -6,7 +6,7 @@ application "django_project_template" do
     migrate true
     repository node['project']['repository']
     revision node['project']['branch']
-    #packages ["libpq-dev", "git-core", "mercurial"]
+    packages ["yui-compressor"]
 
     django do
         #packages ["redis"]
