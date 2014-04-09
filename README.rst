@@ -1,112 +1,66 @@
 ========================
-django-twoscoops-project
+django-twoscoops-project-vagrant-chef
 ========================
 
-A project template for Django 1.6 (with a tag for Django 1.5).
+General integration Vagrant, Chef and django project templates. The point of the project is to automate development
+tasks, needed to start working django project in Vagrant.
 
-To use this project follow these steps:
+Workflow:
+- git gets the development (?) version of this repository and updates all the submodules
+- django-admin.py startproject command builds the project using the template structure of the repository and cleans
+all the git crumbles (this logics is to change in the future)
+- git initializes the repository in the new project, makes initial commit with all the files
+- creates vagrant instance with vagrant up
+- provisions vagrant with vagrant provision
 
-#. Create your working environment
-#. Install Django
-#. Create the new project using the django-two-scoops template
-#. Install additional dependencies
-#. Use the Django admin to create the project
+Prerequisites
+================
+- Vagrant (last version)
+- Bash (lol)
+- Django (if you have multiple python projects or django versions, probably you will need virtualenv) and
+django-admin.py reachable from future project directory
+- Git
+- Virtualbox
 
-*note: these instructions show creation of a project called "icecream".  You
-should replace this name with the actual name of your project.*
+Start project
+================
 
-Working Environment
-===================
+`sh utils/start_project.sh <project_name>`
 
-You have several options in setting up your working environment.  We recommend
-using virtualenv to separate the dependencies of your project from your system's
-python environment.  If on Linux or Mac OS X, you can also use virtualenvwrapper to help manage multiple virtualenvs across different projects.
+Runserver
+================
 
-Virtualenv Only
----------------
+- `cd <project_name>`
+- `vagrant ssh`
+- `cd /vagrant`
+- `source source shared/env/bin/activate`
+- `python <project_name>/manage.py runserver 0.0.0.0:8000`
 
-First, make sure you are using virtualenv (http://www.virtualenv.org). Once
-that's installed, create your virtualenv::
+From host check normal `127.0.0.1:8000`. Should show basic template (static files still does not work :()
 
-    $ virtualenv --distribute icecream
+Related projects and docs
+================
+- Vagrant: http://docs.vagrantup.com/v2/. Last releases: http://www.vagrantup.com/downloads.html
+- Chef: http://docs.opscode.com/
+- Django admin startproject command: https://docs.djangoproject.com/en/dev/ref/django-admin/#startproject-projectname-destination
 
-You will also need to ensure that the virtualenv has the project directory
-added to the path. Adding the project directory will allow `django-admin.py` to
-be able to change settings using the `--settings` flag.
+Misc
+================
 
-Virtualenv with virtualenvwrapper
-------------------------------------
+- Don't forget update vagrant :)
+- Start script initializes git repo in the new project directory. Don't forget to set upstream
+- Theoretically, after some upcoming changes (for example new python requirements), you just need to perform `vagrant provision`
+and vagrant updates the dependencies
 
-In Linux and Mac OSX, you can install virtualenvwrapper (http://virtualenvwrapper.readthedocs.org/en/latest/),
-which will take care of managing your virtual environments and adding the
-project path to the `site-directory` for you::
+Known Issues
+================
 
-    $ mkdir icecream
-    $ mkvirtualenv -a icecream icecream-dev
-    $ cd icecream && add2virtualenv `pwd`
-
-Using virtualenvwrapper with Windows
-----------------------------------------
-
-There is a special version of virtualenvwrapper for use with Windows (https://pypi.python.org/pypi/virtualenvwrapper-win).::
-
-    > mkdir icecream
-    > mkvirtualenv icecream-dev
-    > add2virtualenv icecream
-
-
-Installing Django
-=================
-
-To install Django in the new virtual environment, run the following command::
-
-    $ pip install django
-
-Creating your project
-=====================
-
-To create a new Django project called '**icecream**' using
-django-twoscoops-project, run the following command::
-
-    $ django-admin.py startproject --template=https://github.com/twoscoops/django-twoscoops-project/archive/master.zip --extension=py,rst,html icecream_project
-    
-For Django 1.5 users, we recommend::
-
-    $ django-admin.py startproject --template=https://github.com/twoscoops/django-twoscoops-project/archive/1.5.zip --extension=py,rst,html icecream_project
-
-Installation of Dependencies
-=============================
-
-Depending on where you are installing dependencies:
-
-In development::
-
-    $ pip install -r requirements/local.txt
-
-For production::
-
-    $ pip install -r requirements.txt
-
-*note: We install production requirements this way because many Platforms as a
-Services expect a requirements.txt file in the root of projects.*
-
-Follows Best Practices
-======================
-
-.. image:: http://twoscoops.smugmug.com/Two-Scoops-Press-Media-Kit/i-C8s5jkn/0/O/favicon-152.png
-   :name: Two Scoops Logo
-   :align: center
-   :alt: Two Scoops of Django
-   :target: http://twoscoopspress.org/products/two-scoops-of-django-1-6
-
-This project follows best practices as espoused in `Two Scoops of Django: Best Practices for Django 1.6`_.
-
-.. _`Two Scoops of Django: Best Practices for Django 1.6`: http://twoscoopspress.org/products/two-scoops-of-django-1-6
+- Static files won't served
+- Development server does not reload the code on change (gunicorn?)
+- Cookbooks won't linked as submodules (currently workarounded)
 
 Acknowledgements
 ================
 
+- Forked from django-twoscoops-project
 - Many thanks to Randall Degges for the inspiration to write the book and django-skel.
-- All of the contributors_ to this project.
-
-.. _contributors: https://github.com/twoscoops/django-twoscoops-project/blob/master/CONTRIBUTORS.txt
