@@ -6,6 +6,7 @@ General integration Vagrant, Chef and django project templates. The point of the
 tasks, needed to start working django project in Vagrant.
 
 Workflow:
+========================
 - git gets the development (?) version of this repository and updates all the submodules
 - django-admin.py startproject command builds the project using the template structure of the repository and cleans
 all the git crumbles (this logics is to change in the future)
@@ -25,7 +26,12 @@ django-admin.py reachable from future project directory
 Start project
 ================
 
-`sh utils/start_project.sh <project_name>`
+Copy utils/start_project.sh script somewhere, you want to start the django project.
+Execute it :)
+
+`sh start_project.sh <project_name>`
+
+This takes much time (10-15 min), so get a drink ;)
 
 Runserver
 ================
