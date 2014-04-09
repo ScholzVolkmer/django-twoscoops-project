@@ -109,9 +109,9 @@ Vagrant.configure("2") do |config|
                      },
       "project" => {
                     #"repository"=> "file:///home/sergey/bus/dj/repo/{{project_name}}",
-                    "repository" => "https://github.com/ScholzVolkmer/django-twoscoops-project.git",
-                    #"repository" => "../",
-                    "branch"=>"develop"
+                    #"repository" => "https://github.com/ScholzVolkmer/django-twoscoops-project.git",
+                    "repository" => "file:///vagrant",
+                    "branch"=>"master"
                     }
     }
 
