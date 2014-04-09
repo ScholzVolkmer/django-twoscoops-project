@@ -1,6 +1,6 @@
 [submodule "chef/cookbooks/mysql"]
 	path = chef/cookbooks/mysql
-	url = git@github.com:ScholzVolkmer/mysql.git
+	url = https://github.com/ScholzVolkmer/mysql.git
 [submodule "chef/cookbooks/apache2"]
 	path = chef/cookbooks/apache2
 	url = https://github.com/opscode-cookbooks/apache2.git
@@ -18,16 +18,16 @@
 	url = https://github.com/opscode-cookbooks/openssl.git
 [submodule "chef/cookbooks/logrotate"]
 	path = chef/cookbooks/logrotate
-	url = git@github.com:ScholzVolkmer/logrotate.git
+	url = https://github.com/ScholzVolkmer/logrotate.git
 [submodule "chef/cookbooks/pacman"]
 	path = chef/cookbooks/pacman
-	url = git@github.com:ScholzVolkmer/pacman.git
+	url = https://github.com/ScholzVolkmer/pacman.git
 [submodule "chef/cookbooks/aws"]
 	path = chef/cookbooks/aws
 	url = https://github.com/opscode-cookbooks/aws.git
 [submodule "chef/cookbooks/postgresql"]
 	path = chef/cookbooks/postgresql
-	url = git@github.com:ScholzVolkmer/postgresql.git
+	url = https://github.com/ScholzVolkmer/postgresql.git
 [submodule "chef/cookbooks/xfs"]
 	path = chef/cookbooks/xfs
 	url = https://github.com/opscode-cookbooks/xfs.git
@@ -39,19 +39,19 @@
 	url = https://github.com/opscode-cookbooks/database.git
 [submodule "chef/cookbooks/python"]
 	path = chef/cookbooks/python
-	url = git@github.com:ScholzVolkmer/python.git
+	url = https://github.com/ScholzVolkmer/python.git
 [submodule "chef/cookbooks/application"]
 	path = chef/cookbooks/application
-	url = git@github.com:ScholzVolkmer/application.git
+	url = https://github.com/ScholzVolkmer/application.git
 [submodule "chef/cookbooks/gunicorn"]
 	path = chef/cookbooks/gunicorn
 	url = https://github.com/opscode-cookbooks/gunicorn.git
 [submodule "chef/cookbooks/supervisor"]
 	path = chef/cookbooks/supervisor
-	url = git@github.com:ScholzVolkmer/supervisor.git
+	url = https://github.com/ScholzVolkmer/supervisor.git
 [submodule "chef/cookbooks/application_python"]
 	path = chef/cookbooks/application_python
-	url = git@github.com:ScholzVolkmer/application_python.git
+	url = https://github.com/ScholzVolkmer/application_python.git
 [submodule "chef/cookbooks/yum-epel"]
 	path = chef/cookbooks/yum-epel
 	url = https://github.com/opscode-cookbooks/yum-epel.git
@@ -60,13 +60,13 @@
 	url = https://github.com/opscode-cookbooks/yum.git
 [submodule "chef/cookbooks/git"]
 	path = chef/cookbooks/git
-	url = git@github.com:ScholzVolkmer/git.git
+	url = https://github.com/ScholzVolkmer/git.git
 [submodule "chef/cookbooks/dmg"]
 	path = chef/cookbooks/dmg
 	url = https://github.com/opscode-cookbooks/dmg.git
 [submodule "chef/cookbooks/runit"]
 	path = chef/cookbooks/runit
-	url = git@github.com:ScholzVolkmer/runit.git
+	url = https://github.com/ScholzVolkmer/runit.git
 [submodule "chef/cookbooks/windows"]
 	path = chef/cookbooks/windows
 	url = https://github.com/opscode-cookbooks/windows.git
