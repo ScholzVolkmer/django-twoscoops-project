@@ -22,4 +22,11 @@ application "django_project_template" do
         #    password "awesome_password"
         #end
     end
+
+    gunicorn do
+        app_module :django
+        port 8000
+        debug true
+        project_name "{{project_name}}"
+    end
 end
