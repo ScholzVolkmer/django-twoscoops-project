@@ -70,6 +70,7 @@ THIRD_PARTY_APPS = (
     'filer',
     'pipeline',
     'easy_thumbnails',
+    'gunicorn'
 )
 
 # Apps specific for this project go here.
