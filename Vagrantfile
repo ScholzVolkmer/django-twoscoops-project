@@ -88,8 +88,9 @@ Vagrant.configure("2") do |config|
     chef.add_recipe "mysql-databases"
     chef.add_recipe "git"
     chef.add_recipe "supervisor"
+    chef.add_recipe "nginx"
     chef.add_recipe "django_project_template"
-
+    chef.add_recipe "nginx_conf"
     #chef.add_role "web"
   
     #	   # You may also specify custom JSON attributes:
@@ -114,7 +115,10 @@ Vagrant.configure("2") do |config|
                     #"repository" => "https://github.com/ScholzVolkmer/django-twoscoops-project.git",
                     "repository" => "file:///vagrant",
                     "branch"=>"master"
-                    }
+                    },
+      "nginx" => {
+                  "default_site_enabled"=>false
+                  }
     }
 
   end

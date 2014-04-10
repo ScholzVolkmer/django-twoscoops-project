@@ -1,4 +1,6 @@
 include_recipe "application"
+include_recipe "nginx_conf"
+
 application "django_project_template" do
     path "/vagrant"
     owner "vagrant"
@@ -25,8 +27,26 @@ application "django_project_template" do
 
     gunicorn do
         app_module :django
-        port 8000
+        port 5000
         debug true
         project_name "{{project_name}}"
     end
+end
+
+nginx_conf_file "{{project_name}}" do
+  action :delete
+end
+
+nginx_conf_file "{{project_name}}" do
+  #root "/vagrant/{{project_name}}/static"
+  #site_type :static
+  listen "8000"
+  locations ({
+      '/static/' => {
+            'alias' => "/vagrant/{{project_name}}/static/"
+        },
+      '/' => {
+               "proxy_pass" => "http://localhost:5000"
+              }
+  })
 end
