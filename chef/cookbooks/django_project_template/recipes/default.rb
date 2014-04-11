@@ -8,7 +8,7 @@ application "django_project_template" do
     migrate true
     repository node['project']['repository']
     revision node['project']['branch']
-    packages ["yui-compressor"]
+    packages ["yui-compressor", "nfs-common", "portmap"]
 
     django do
         #packages ["redis"]
