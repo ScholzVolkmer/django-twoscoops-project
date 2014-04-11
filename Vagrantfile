@@ -1,6 +1,7 @@
 # -*- mode: ruby -*-
 # vi: set ft=ruby :
 Vagrant.require_plugin "vagrant-omnibus"
+Vagrant.require_plugin "vagrant-berkshelf"
   
 Vagrant.configure("2") do |config|
   # All Vagrant configuration is done here. The most common configuration
@@ -10,6 +11,7 @@ Vagrant.configure("2") do |config|
   # Every Vagrant virtual environment requires a box to build off of.
   config.vm.box = "precise64"
   config.omnibus.chef_version = :latest
+  config.berkshelf.enabled = true
 
   # The url from where the 'config.vm.box' box will be fetched if it
   # doesn't already exist on the user's system.
@@ -19,10 +21,10 @@ Vagrant.configure("2") do |config|
   # within the machine from a port on the host machine. In the example below,
   # accessing "localhost:8080" will access port 80 on the guest machine.
   config.vm.network :forwarded_port, guest: 8000, host: 8000
-  config.vm.synced_folder ".", "/vagrant", :nfs => true
+  #config.vm.synced_folder ".", "/vagrant", :nfs => true
   # Create a private network, which allows host-only access to the machine
   # using a specific IP.
-  config.vm.network :private_network, ip: "10.11.12.13"
+  #config.vm.network :private_network, ip: "10.11.12.13"
 
   # Create a public network, which generally matched to bridged network.
   # Bridged networks make the machine appear as another physical device on

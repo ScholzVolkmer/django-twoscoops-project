@@ -1,3 +1,4 @@
+#!/bin/sh
 git clone --depth 1 --no-hardlinks https://github.com/ScholzVolkmer/django-twoscoops-project.git
 cd django-twoscoops-project
 git submodule update --init --recursive
@@ -12,4 +13,3 @@ git add .
 git commit -m "Initial commit"
 vagrant up
 vagrant provision
-rm -rf django-twoscoops-project
