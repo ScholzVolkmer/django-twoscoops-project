@@ -91,7 +91,7 @@ Vagrant.configure("2") do |config|
     chef.add_recipe "git"
     chef.add_recipe "supervisor"
     chef.add_recipe "nginx"
-    chef.add_recipe "django_project_template"
+    chef.add_recipe "{{project_name}}"
     chef.add_recipe "nginx_conf"
     #chef.add_role "web"
   
