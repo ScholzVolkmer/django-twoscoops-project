@@ -61,7 +61,6 @@ and vagrant updates the dependencies
 Known Issues
 ================
 
-- Static files won't served
 - Development server does not reload the code on change (gunicorn?)
 - Cookbooks won't linked as submodules (currently workarounded, Berkshelf?)
 - Everything is so freaking slow (nfs?)
