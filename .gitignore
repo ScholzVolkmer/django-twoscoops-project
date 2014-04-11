@@ -18,7 +18,7 @@ build
 .pydevproject
 .settings
 
-# Eclipse
+# PyCharm
 .idea
 
 # Linux Editors
@@ -44,3 +44,6 @@ Desktop.ini
 
 # Vagrant
 .vagrant
+
+# playground
+.playground
