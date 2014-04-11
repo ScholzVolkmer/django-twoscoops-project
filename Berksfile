@@ -1,7 +1,6 @@
 site :opscode
 
-
-
+cookbook 'database'
 cookbook 'mysql', git: 'https://github.com/ScholzVolkmer/mysql.git'
 cookbook 'logrotate', git: 'https://github.com/ScholzVolkmer/logrotate.git'
 cookbook 'pacman', git: 'https://github.com/ScholzVolkmer/pacman.git'
@@ -13,24 +12,5 @@ cookbook 'git', git: 'https://github.com/ScholzVolkmer/git.git'
 cookbook 'runit', git: 'https://github.com/ScholzVolkmer/runit.git'
 cookbook 'nginx_conf', git: 'https://github.com/ScholzVolkmer/chef-nginx_conf.git'
 
-cookbook 'apache2'
-cookbook 'apt'
-cookbook 'build-essential'
-cookbook 'iptables'
-cookbook 'openssl'
-cookbook 'aws'
-cookbook 'xfs'
-cookbook 'mysql-chef_gem'
-cookbook 'database'
-cookbook 'gunicorn'
-cookbook 'yum-epel'
-cookbook 'dmg'
-cookbook 'windows'
-cookbook 'yum'
-cookbook 'nginx'
-cookbook 'bluepill'
-cookbook 'ohai'
-cookbook 'rsyslog'
-
 cookbook 'mysql-databases', path: 'chef/cookbooks/mysql-databases/'
-cookbook 'django_project_template', path: 'chef/cookbooks/django_project_template/'
+cookbook '{{project_name}}', path: 'chef/cookbooks/{{project_name}}/'

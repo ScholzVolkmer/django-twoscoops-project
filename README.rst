@@ -62,8 +62,7 @@ Known Issues
 ================
 
 - Development server does not reload the code on change (gunicorn?)
-- Cookbooks won't linked as submodules (currently workarounded, Berkshelf?)
-- Everything is so freaking slow (nfs?)
+- Everything is so freaking slow
 
 Acknowledgements
 ================

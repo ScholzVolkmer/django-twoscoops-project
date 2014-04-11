@@ -1,7 +1,14 @@
 include_recipe "application"
 include_recipe "nginx_conf"
 
-application "django_project_template" do
+directory "vagrant/shared" do
+  owner "vagrant"
+  group "vagrant"
+  mode '0755'
+  recursive true
+end
+
+application "{{project_name}}" do
     path "/vagrant"
     owner "vagrant"
     group "vagrant"
