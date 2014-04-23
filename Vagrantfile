@@ -81,18 +81,15 @@ Vagrant.configure("2") do |config|
   #
   config.vm.provision :chef_solo do |chef|
     chef.cookbooks_path = "./chef/cookbooks"
-    #chef.roles_path = "./chef/roles"
-    #chef.data_bags_path = "./chef/data_bags"
     chef.add_recipe "apt"
     #chef.add_recipe "apache2"
     chef.add_recipe "mysql::server"
     chef.add_recipe "database::mysql"
     chef.add_recipe "mysql-databases"
     chef.add_recipe "git"
+    chef.add_recipe "python"
     chef.add_recipe "supervisor"
-    chef.add_recipe "nginx"
     chef.add_recipe "{{project_name}}"
-    chef.add_recipe "nginx_conf"
     #chef.add_role "web"
   
     #	   # You may also specify custom JSON attributes:
@@ -111,16 +108,7 @@ Vagrant.configure("2") do |config|
                                    "host" => "localhost"
                                   }
                                  ]
-                     },
-      "project" => {
-                    #"repository"=> "file:///home/sergey/bus/dj/repo/{{project_name}}",
-                    #"repository" => "https://github.com/ScholzVolkmer/django-twoscoops-project.git",
-                    "repository" => "file:///vagrant",
-                    "branch"=>"master"
-                    },
-      "nginx" => {
-                  "default_site_enabled"=>false
-                  }
+                     }
     }
 
   end

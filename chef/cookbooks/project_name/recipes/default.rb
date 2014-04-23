@@ -1,59 +1,73 @@
-include_recipe "application"
-include_recipe "nginx_conf"
+include_recipe "python"
+include_recipe "supervisor"
 
-directory "vagrant/shared" do
+
+apt_package "virtualenvwrapper" do
+  action :install
+end
+
+apt_package "yui-compressor" do
+  action :install
+end
+
+apt_package "libmysqlclient-dev" do
+  action :install
+end
+
+apt_package "ruby-full" do
+  action :install
+end
+
+apt_package "rubygems" do
+  action :install
+end
+
+apt_package "libxml2-dev" do
+  action :install
+end
+
+apt_package "libxslt-dev" do
+  action :install
+end
+
+gem_package "sass" do
+  action :install
+end
+
+apt_package "coffeescript" do
+  action :install
+end
+
+python_virtualenv "/vagrant/env" do
+  Chef::Log.info("Virtualenv...")
   owner "vagrant"
   group "vagrant"
-  mode '0755'
-  recursive true
+  action :create
 end
 
-application "{{project_name}}" do
-    path "/vagrant"
-    owner "vagrant"
-    group "vagrant"
-    migrate true
-    repository node['project']['repository']
-    revision node['project']['branch']
-    packages ["yui-compressor", "nfs-common", "portmap"]
-
-    django do
-        #packages ["redis"]
-        requirements "requirements.txt"
-        project_name "{{project_name}}"
-        #settings_template "settings.py.erb"
-        #debug true
-        #collectstatic "build_static --noinput"
-        #database do
-        #    database "packaginator"
-        #    engine "postgresql_psycopg2"
-        #    username "packaginator"
-        #    password "awesome_password"
-        #end
-    end
-
-    gunicorn do
-        app_module :django
-        port 5000
-        debug true
-        project_name "{{project_name}}"
-    end
+python_pip "/vagrant/requirements.txt" do
+    
+    virtualenv "/vagrant/env"
+  action :install_requirements
 end
 
-nginx_conf_file "{{project_name}}" do
-  action :delete
+execute "/vagrant/env/bin/python /vagrant/{{project_name}}/manage.py syncdb --noinput --migrate" do
+  Chef::Log.info("Migration/syncdb")
+  user 'vagrant'
+  group 'vagrant'
 end
 
-nginx_conf_file "{{project_name}}" do
-  #root "/vagrant/{{project_name}}/static"
-  #site_type :static
-  listen "8000"
-  locations ({
-      '/static/' => {
-            'alias' => "/vagrant/{{project_name}}/static/"
-        },
-      '/' => {
-               "proxy_pass" => "http://localhost:5000"
-              }
-  })
+execute "/vagrant/env/bin/python /vagrant/{{project_name}}/manage.py loaddata /vagrant/{{project_name}}/fixtures/superuser.json" do
+  Chef::Log.info("Creating django@django superuser")
+  user 'vagrant'
+  group 'vagrant'
+end
+
+supervisor_service "runserver" do
+  Chef::Log.info("Supervisor runserver...")
+  action :enable
+  autostart true
+  user "vagrant"
+  command "/vagrant/env/bin/python /vagrant/{{project_name}}/manage.py runserver 0.0.0.0:8000"
+  autorestart true
 end
