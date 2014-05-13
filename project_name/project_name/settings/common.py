@@ -67,7 +67,6 @@ DJANGO_APPS = (
 
 THIRD_PARTY_APPS = (
     'south',
-    'pipeline',
     'cms',
     'mptt',
     'menus',
