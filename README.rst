@@ -43,6 +43,7 @@ Runserver
 - `python <project_name>/manage.py runserver 0.0.0.0:8000`
 
 From host check normal `127.0.0.1:8000`. Should show basic template (static files still does not work :()
+**Note** that by default this command is already executed under supervisor
 
 Related projects and docs
 ================
