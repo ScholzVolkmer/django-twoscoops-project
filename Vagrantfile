@@ -1,7 +1,7 @@
 # -*- mode: ruby -*-
 # vi: set ft=ruby :
-Vagrant.require_plugin "vagrant-omnibus"
-Vagrant.require_plugin "vagrant-berkshelf"
+
+
   
 Vagrant.configure("2") do |config|
   # All Vagrant configuration is done here. The most common configuration
@@ -10,7 +10,7 @@ Vagrant.configure("2") do |config|
 
   # Every Vagrant virtual environment requires a box to build off of.
   config.vm.box = "precise64"
-  config.omnibus.chef_version = :latest
+  config.omnibus.chef_version = "11.12.4"
   config.berkshelf.enabled = true
 
   # The url from where the 'config.vm.box' box will be fetched if it
@@ -21,6 +21,8 @@ Vagrant.configure("2") do |config|
   # within the machine from a port on the host machine. In the example below,
   # accessing "localhost:8080" will access port 80 on the guest machine.
   config.vm.network :forwarded_port, guest: 8000, host: 8000
+  config.vm.synced_folder ".", "/vagrant", type: "rsync", rsync__exclude: [".git/","{{project_name}}/media/*", "*coffee/*.js", "*sass/*.css"]
+
   #config.vm.synced_folder ".", "/vagrant", :nfs => true
   # Create a private network, which allows host-only access to the machine
   # using a specific IP.
@@ -45,8 +47,10 @@ Vagrant.configure("2") do |config|
   config.vm.provider :virtualbox do |vb|
     # Don't boot with headless modeextension
     vb.gui = true
-    #   # Use VBoxManage to customize the VM. For example to change memory:
+    #vb.cpus = 3
+    #Use VBoxManage to customize the VM. For example to change memory:
     #vb.customize ["modifyvm", :id, "--memory", "1024"]
+    vb.customize ["modifyvm", :id, "--natdnshostresolver1", "on"]
   end
   #/home/sergey/PycharmProjects/mb_amg_f1/src/mbamgf1/core
   # View the documentation for the provider you're using for mothisre
@@ -82,16 +86,12 @@ Vagrant.configure("2") do |config|
   config.vm.provision :chef_solo do |chef|
     chef.cookbooks_path = "./chef/cookbooks"
     chef.add_recipe "apt"
-    #chef.add_recipe "apache2"
     chef.add_recipe "mysql::server"
     chef.add_recipe "database::mysql"
     chef.add_recipe "mysql-databases"
     chef.add_recipe "git"
     chef.add_recipe "python"
-    chef.add_recipe "supervisor"
-    chef.add_recipe "{{project_name}}"
-    #chef.add_role "web"
-  
+    chef.add_recipe "supervisor:vagrant"  
     #	   # You may also specify custom JSON attributes:
     chef.json = {
       "mysql" => {
@@ -112,6 +112,8 @@ Vagrant.configure("2") do |config|
     }
 
   end
+  config.vm.provision :shell, :inline => "sudo initctl emit vagrant-mounted"
+
 
   # Enable provisioning with chef server, specifying the chef server URL,
   # and the path to the validation key (relative to this Vagrantfile).
@@ -135,4 +137,9 @@ Vagrant.configure("2") do |config|
   # chef-validator, unless you changed the configuration.
   #
   #   chef.validation_client_name = "ORGNAME-validator"
+  config.vm.provision :shell, :inline => "sudo initctl emit vagrant-mounted"
+  
+  config.vm.provision :chef_solo do |chef|
+    chef.add_recipe "{{project_name}}"
+  end
 end
