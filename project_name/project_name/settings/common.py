@@ -67,10 +67,26 @@ DJANGO_APPS = (
 
 THIRD_PARTY_APPS = (
     'south',
+    'pipeline',
+    'cms',
+    'mptt',
+    'menus',
+    'sekizai',
+    'reversion',
+    'djangocms_text_ckeditor',
+    'djangocms_teaser',
+    'djangocms_inherit',
+    'djangocms_picture',
+    'djangocms_video',
+    'djangocms_link',
     'filer',
     'pipeline',
     'easy_thumbnails',
-    'gunicorn'
+    'cmsplugin_filer_file',
+    'cmsplugin_filer_folder',
+    'cmsplugin_filer_image',
+    'cmsplugin_filer_teaser',
+    'cmsplugin_filer_video',
 )
 
 # Apps specific for this project go here.
@@ -91,6 +107,13 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'django.middleware.locale.LocaleMiddleware',
+    'django.middleware.doc.XViewMiddleware',
+    'django.middleware.common.CommonMiddleware',
+    'cms.middleware.page.CurrentPageMiddleware',
+    'cms.middleware.user.CurrentUserMiddleware',
+    'cms.middleware.toolbar.ToolbarMiddleware',
+    'cms.middleware.language.LanguageCookieMiddleware',
 )
 ########## END MIDDLEWARE CONFIGURATION
 
@@ -109,12 +132,6 @@ CACHES = {
         'LOCATION': SITE_NAME + CONFIGURATION
     }
 }
-
-CACHE_MIDDLEWARE_ALIAS = "default"
-CACHE_MIDDLEWARE_SECONDS = 2
-CACHE_MIDDLEWARE_KEY_PREFIX = ""
-CACHE_MIDDLEWARE_ANONYMOUS_ONLY = True
-CACHE_TEMPLATE_TIMEOUT = 60
 
 DEBUG = True
 
@@ -207,112 +224,37 @@ STATICFILES_FINDERS = (
     'django.contrib.staticfiles.finders.FileSystemFinder',
     'django.contrib.staticfiles.finders.AppDirectoriesFinder',
 )
+PIPELINE_COMPILERS = (
+    'pipeline.compilers.sass.SASSCompiler',
+    'pipeline.compilers.coffee.CoffeeScriptCompiler',
+)
 
 PIPELINE_JS_COMPRESSOR = 'pipeline.compressors.yui.YUICompressor'
 PIPELINE_CSS_COMPRESSOR = 'pipeline.compressors.yui.YUICompressor'
 PIPELINE_YUI_BINARY = '/usr/bin/env yui-compressor'
+# uncomment when the app created
+#PIPELINE_CSS = {
+#    '<<app-name>>': {
+#        'source_filenames': (
+#            'sass/main.sass',
+#        ),
+#        'output_filename': 'main.css',
+#    },
+#}
+#PIPELINE_JS = {
+#    '<<app-name>>': {
+#        'source_filenames': (
+#            'coffee/lib/event.coffee',
+#            'coffee/header.coffee',
+#            'coffee/main.coffee',
+#        ),
+#        'output_filename': 'main.js',
+#    },
+#}
 
-PIPELINE_DISABLE_WRAPPER = True
-STATICFILES_STORAGE = 'pipeline.storage.PipelineStorage'
-PIPELINE_STORAGE = 'pipeline.storage.PipelineFinderStorage'
+PIPELINE_COFFEE_SCRIPT_ARGUMENTS = "-b"
+STATICFILES_STORAGE = 'pipeline.storage.PipelineCachedStorage'
 
-PIPELINE_JS = {
-    # 'head_ie': {
-    #     'source_filenames': (
-    #         'assets/javascripts/vendor/selectivzr-1.0.2.js',
-    #     ),
-    #     'output_filename': 'assets/javascripts/head_ie.min.js',
-    # },
-    'head': {
-        'source_filenames': (
-            'assets/javascripts/vendor/modernizr-2.6.2.js',
-            #'assets/javascripts/vendor/selectivizr.js',
-        ),
-        'output_filename': 'assets/javascripts/head.min.js',
-    },
-
-    'jquery': {
-        'source_filenames': (
-            'assets/javascripts/vendor/jquery-2.0.3.js',
-        ),
-        'output_filename': 'assets/javascripts/jquery.min.js',
-    },
-
-    'jquery_ie': {
-        'source_filenames': (
-            'assets/javascripts/vendor/jquery-1.10.2.js',
-        ),
-        'output_filename': 'assets/javascripts/jquery.ie.min.js',
-    },
-
-    'application': {
-        'source_filenames': (
-            'assets/javascripts/vendor/TweenMax-1.10.3.js',
-            'assets/javascripts/vendor/plugins/*',
-            'assets/javascripts/application/core.js',
-            'assets/javascripts/application/helpers.js',
-            'assets/javascripts/application/loader.js',
-            'assets/javascripts/application/loader.jPreload.js',
-            'assets/javascripts/application/log.js',
-            'assets/javascripts/application/layout.js',
-            'assets/javascripts/application/plugins.js',
-            'assets/javascripts/application/plugins/*',
-            #'assets/javascripts/application/deeplink.js',
-            #'assets/javascripts/plugins/wordwrap.js',
-        ),
-        'output_filename': 'assets/javascripts/application.min.js',
-    }
-}
-
-PIPELINE_CSS = {
-    'ie': {
-        'source_filenames': (
-            'assets/stylesheets/css/ie.css',
-        ),
-        'output_filename': 'assets/stylesheets/css/ie.min.css',
-        'extra_context': {
-            'media': 'screen, projection',
-        },
-    },
-    'screen': {
-        'source_filenames': (
-            'assets/stylesheets/css/screen.css',
-        ),
-        'output_filename': 'assets/stylesheets/css/screen.min.css',
-        'extra_context': {
-            'media': 'screen, projection',
-        },
-    },
-    'print': {
-        'source_filenames': (
-            'assets/stylesheets/css/print.css',
-        ),
-        'output_filename': 'assets/stylesheets/css/print.min.css',
-        'extra_context': {
-            'media': 'print, embossed',
-        },
-    }
-}
-
-FILER_FILE_MODELS = (
-    "core.models.Video",
-    "core.models.Document",
-    "core.models.Audio",
-    "core.models.Image",
-    "core.models.UndefinedMedia"
-)
-
-FILER_STORAGES = {
-    'public': {
-        'main': {
-            'ENGINE': 'filer.storage.PublicFileSystemStorage',
-            'UPLOAD_TO': 'filer.utils.generate_filename.by_date'
-        },
-        'download': {
-            'ENGINE': 'filer.storage.PublicFileSystemStorage',
-        },
-    },
-}
 
 THUMBNAIL_PROCESSORS = (
     'easy_thumbnails.processors.colorspace',
@@ -323,189 +265,20 @@ THUMBNAIL_PROCESSORS = (
 )
 
 THUMBNAIL_ALIASES_ORDER = ['default', ]
-
+SOUTH_MIGRATION_MODULES = {
+    'easy_thumbnails': 'easy_thumbnails.south_migrations',
+}
 THUMBNAIL_ALIASES = {
-    'default': {
-        'slider': {
-            'title': _('Slider Background'),
-            'size': (1280, 496),
-            'autocrop': False,
-            'crop': 'smart',
-            'upscale': True,
-            'preview': True,
-            'mask': '0 3px 0 3px',
-        },
-        'slider_gallery': {
-            'title': _('Slider Gallery'),
-            'size': (1280, 600),
-            'autocrop': False,
-            'crop': 'smart',
-            'upscale': True,
-            'preview': True,
-            'mask': '0 3px 0 3px',
-        },
-        'slider_thumb': {
-            'title': _('Slider Background Thumb'),
-            'size': (146, 82),
-            'autocrop': False,
-            'crop': 'smart',
-            'upscale': True,
-            'preview': True,
-            'mask': '0 3px 0 3px',
-        },
-        'slider_article': {
-            'title': _('Slider Background Article'),
-            'size': (666, 374),
-            'autocrop': False,
-            'crop': 'smart',
-            'upscale': True,
-            'preview': True,
-            'mask': '0 3px 0 3px',
-        },
-        'slider_article_portrait': {
-            'title': _('Slider Background Portrait'),
-            'size': (666, 0),
-            'autocrop': False,
-            'crop': 'smart',
-            'upscale': False,
-            'preview': True,
-            'mask': '0 3px 0 3px',
-        },
-        'teaser_article': {
-            'title': _('Teaser Article/Video/Gallery'),
-            'size': (312, 176),
-            'autocrop': False,
-            'crop': 'smart',
-            'upscale': False,
-            'preview': True,
-            'mask': '0 3px 0 3px',
-        },
-        'teaser_article_share': {
-            'title': _('Teaser Article/Video/Gallery'),
-            'size': (400, 209),
-            'autocrop': False,
-            'crop': 'smart',
-            'upscale': False,
-            'preview': True,
-            'mask': '0 3px 0 3px',
-        },
-        'textImage_article': {
-            'title': _('TextImage Article'),
-            'size': (252, 190),
-            'autocrop': False,
-            'crop': 'smart',
-            'upscale': False,
-            'preview': True,
-            'mask': '0 3px 0 3px',
-        },
-        'teaser_social': {
-            'title': _('Teaser Social '),
-            'size': (312, 205),
-            'autocrop': False,
-            'crop': 'smart',
-            'upscale': False,
-            'preview': True,
-            'mask': '0 3px 0 3px',
-        },
-        'teaser_static_1x1': {
-            'title': _('Teaser Static 1x1'),
-            'size': (312, 260),
-            'autocrop': False,
-            'crop': 'smart',
-            'upscale': False,
-            'preview': True,
-            'mask': '0 3px 0 3px',
-        },
-        'teaser_static_1x2': {
-            'title': _('Teaser Static 1x2'),
-            'size': (312, 390),
-            'autocrop': False,
-            'crop': 'smart',
-            'upscale': False,
-            'preview': True,
-            'mask': '0 3px 0 3px',
-        },
-        'teaser_static_1x2_mobile': {
-            'title': _('Teaser Static 1x2 Mobile'),
-            'size': (278, 202),
-            'autocrop': False,
-            'crop': 'smart',
-            'upscale': False,
-            'preview': True,
-            'mask': '0 3px 0 3px',
-        },
-        'teaser_static_2x1': {
-            'title': _('Teaser Static 2x1'),
-            'size': (630, 260),
-            'autocrop': False,
-            'crop': 'smart',
-            'upscale': False,
-            'preview': True,
-            'mask': '0 3px 0 3px',
-        },
-        'teaser_heritage': {
-            'title': _('Teaser Heritage'),
-            'size': (312, 205),
-            'autocrop': False,
-            'crop': 'smart',
-            'upscale': False,
-            'preview': True,
-            'mask': '0 3px 0 3px',
-        },
-        'teaser_horizontal_aside': {
-            'title': _('Teaser Aside in Detail View'),
-            'size': (155, 87),
-            'autocrop': False,
-            'crop': 'smart',
-            'upscale': False,
-            'preview': True,
-            'mask': '0 3px 0 3px',
-        },
-        'partner_footer': {
-            'title': _('Partner Footer'),
-            'size': (252, 152),
-            'autocrop': False,
-            'crop': 'smart',
-            'upscale': True,
-            'preview': True,
-            'mask': '0 3px 0 3px',
-        },
-        'partner_footer_large': {
-            'title': _('Partner Footer Large'),
-            'size': (244, 420),
-            'autocrop': False,
-            'crop': 'smart',
-            'upscale': True,
-            'preview': True,
-            'mask': '0 3px 0 3px',
-        },
-        'partner_footer_wide': {
-            'title': _('Partner Footer Large'),
-            'size': (341, 207),
-            'autocrop': False,
-            'crop': 'smart',
-            'upscale': True,
-            'preview': True,
-            'mask': '0 3px 0 3px',
-        },
-        'track': {
-            'title': _('track'),
-            'size': (1280, 500),
-            'autocrop': False,
-            'crop': 'smart',
-            'upscale': True,
-            'preview': True,
-            'mask': '0 3px 0 3px',
-        },
+    '': {
+        'avatar': {'size': (50, 50), 'crop': True},
     },
 }
 
 TEMPLATE_LOADERS = (
-    ('django.template.loaders.cached.Loader', (
         'django.template.loaders.filesystem.Loader',
         'django.template.loaders.app_directories.Loader',
-    )),
 )
+
 
 TEMPLATE_DIRS = (
     os.path.join(PROJECT_DIR, 'templates'),
@@ -517,6 +290,11 @@ TEMPLATE_CONTEXT_PROCESSORS = (
     'django.core.context_processors.request',
     'django.core.context_processors.media',
     'django.core.context_processors.static',
+    'cms.context_processors.media',
+    'sekizai.context_processors.sekizai', 
+)
+CMS_TEMPLATES = (
+    ('base.html', 'Base Template'),
 )
 
 TEST_DISCOVERY_ROOT = os.path.join(PROJECT_DIR, "tests")
