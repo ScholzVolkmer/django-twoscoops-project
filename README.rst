@@ -1,5 +1,5 @@
 ========================
-django-twoscoops-project-vagrant-chef
+django chef vagrant project template
 ========================
 
 General integration Vagrant, Chef and django project templates. The point of the project is to automate development
