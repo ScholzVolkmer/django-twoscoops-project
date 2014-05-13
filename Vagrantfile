@@ -91,7 +91,7 @@ Vagrant.configure("2") do |config|
     chef.add_recipe "mysql-databases"
     chef.add_recipe "git"
     chef.add_recipe "python"
-    chef.add_recipe "supervisor:vagrant"  
+    chef.add_recipe "supervisor::vagrant"  
     #	   # You may also specify custom JSON attributes:
     chef.json = {
       "mysql" => {
