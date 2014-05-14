@@ -1,73 +1,90 @@
 {% templatetag openblock %} load staticfiles {% templatetag closeblock %}
 {% templatetag openblock %} load cms_tags sekizai_tags {% templatetag closeblock %}
+{% templatetag openblock %} load compressed {% templatetag closeblock %}
 <!DOCTYPE html>
-<html lang="en">
-  <head>
+<!--[if lt IE 7]>
+<html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>
+<html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>
+<html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!-->
+
+<html class="no-js" lang="en"><!--<![endif]-->
+<head>
     <meta charset="utf-8">
     <title>{% templatetag openblock %} block title {% templatetag closeblock %}{{ project_name }}{% templatetag openblock %} endblock title {% templatetag closeblock %}</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <!-- Le styles -->
-    <link href="{% templatetag openblock %} static 'css/bootstrap.min.css' {% templatetag closeblock %}" rel="stylesheet">
+
+    <link href="{% templatetag openblock %} static 'css/bootstrap.min.css' {% templatetag closeblock %}"
+          rel="stylesheet">
     <style>
-      body {
-        padding-top: 60px; /* 60px to make the container go all the way to the bottom of the topbar */
-      }
+        body {
+            padding-top: 60px; /* 60px to make the container go all the way to the bottom of the topbar */
+        }
     </style>
     {% templatetag openblock %} render_block "css" {% templatetag closeblock %}
     <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
     <!--[if lt IE 9]>
-      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
     <![endif]-->
 
     <!-- This file store project specific CSS -->
-    <link href="{% templatetag openblock %} static 'css/{{ project_name }}.css' {% templatetag closeblock %}" rel="stylesheet">
+    <link href="{% templatetag openblock %} static 'css/{{ project_name }}.css' {% templatetag closeblock %}"
+          rel="stylesheet">
 
     <!-- Use this to quickly test CSS changes in a template,
         then move to {{ project_name }}.css -->
     {% templatetag openblock %} block extra_css {% templatetag closeblock %}{% templatetag openblock %} endblock extra_css {% templatetag closeblock %}
-  </head>
+    {% templatetag openblock %} compressed_css 'application' {% templatetag closeblock %}
+</head>
 
-  <body>
+<body>
 
-    <div class="navbar navbar-inverse navbar-fixed-top">
-      <div class="container">
+<div class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container">
         <div class="navbar-header">
-          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </button>
-          <a class="navbar-brand" href="#">{{ project_name }}</a>
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="#">{{ project_name }}</a>
         </div>
         <div class="collapse navbar-collapse">
-          <ul class="nav navbar-nav">
-            <li class="active"><a href="#">Home</a></li>
-            <li><a href="#about">About</a></li>
-            <li><a href="#contact">Contact</a></li>
-          </ul>
-        </div><!--/.nav-collapse -->
-      </div>
+            <ul class="nav navbar-nav">
+                <li class="active"><a href="#">Home</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </div>
+        <!--/.nav-collapse -->
     </div>
+</div>
 
-    <div class="container">
-      {% templatetag openblock %} cms_toolbar {% templatetag closeblock %}
-      <h1>{% templatetag openblock %} block page_title {% templatetag closeblock %}Example Base Template{% templatetag openblock %} endblock page_title {% templatetag closeblock %}</h1>
-      {% templatetag openblock %} placeholder base_content {% templatetag closeblock %}
+<div class="container">
+    {% templatetag openblock %} cms_toolbar {% templatetag closeblock %}
+    <h1>{% templatetag openblock %} block page_title {% templatetag closeblock %}Example Base Template{% templatetag openblock %} endblock page_title {% templatetag closeblock %}</h1>
+    {% templatetag openblock %} placeholder base_content {% templatetag closeblock %}
 
-    </div> <!-- /container -->
-    {% templatetag openblock %} render_block "js" {% templatetag closeblock %}
-    <!-- Le javascript
-    ================================================== -->
-    <!-- Placed at the end of the document so the pages load faster -->
-    <script src="http://code.jquery.com/jquery-latest.js"></script>
-    <script src="{% templatetag openblock %} static 'js/bootstrap.min.js' {% templatetag closeblock %}"></script>
+    <!--Compilation tests-->
+    <h2>Compilation tests</h2>
+    <span class="test_coffee">Coffee compilation: <span style="color: red;">failed</span></span><br/>
+    <span class="test_sass">Sass compilation: <span style="color: red;" class="success">failed</span></span><br/>
+    <span class="test_coffee_inclusion">Coffee inclusion: <span style="color: red;">failed</span></span><br/>
+</div>
 
-    <!-- place project specific Javascript in this file -->
-    <script src="{% templatetag openblock %} static 'js/{{ project_name }}.js' {% templatetag closeblock %}"></script>
+{% templatetag openblock %} render_block "js" {% templatetag closeblock %}
 
-    {% templatetag openblock %} block extra_js {% templatetag closeblock %}{% templatetag openblock %} endblock extra_js {% templatetag closeblock %}
-  </body>
+<script src="http://code.jquery.com/jquery-latest.js"></script>
+<script src="{% templatetag openblock %} static 'js/bootstrap.min.js' {% templatetag closeblock %}"></script>
+<script src="{% templatetag openblock %} static 'js/{{ project_name }}.js' {% templatetag closeblock %}"></script>
+
+{% templatetag openblock %} block extra_js {% templatetag closeblock %}{% templatetag openblock %} endblock extra_js {%templatetag closeblock %}
+{% templatetag openblock %} compressed_js 'application' {% templatetag closeblock %}
+</body>
 </html>
