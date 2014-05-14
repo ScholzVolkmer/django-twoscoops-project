@@ -6,7 +6,6 @@
   exit 1
  fi
 mv $1/.vagrant .
-mv $1/shared .
 rm -rf $1
 django-admin.py startproject --template=../ -n Vagrantfile,default.rb,metadata.rb,Berksfile -e html $1
 
@@ -19,5 +18,3 @@ cd $1
 git init
 git add .
 git commit -m "Initial commit"
-
-mv ../shared .
