@@ -233,24 +233,23 @@ PIPELINE_JS_COMPRESSOR = 'pipeline.compressors.yui.YUICompressor'
 PIPELINE_CSS_COMPRESSOR = 'pipeline.compressors.yui.YUICompressor'
 PIPELINE_YUI_BINARY = '/usr/bin/env yui-compressor'
 # uncomment when the app created
-#PIPELINE_CSS = {
-#    '<<app-name>>': {
-#        'source_filenames': (
-#            'sass/main.sass',
-#        ),
-#        'output_filename': 'main.css',
-#    },
-#}
-#PIPELINE_JS = {
-#    '<<app-name>>': {
-#        'source_filenames': (
-#            'coffee/lib/event.coffee',
-#            'coffee/header.coffee',
-#            'coffee/main.coffee',
-#        ),
-#        'output_filename': 'main.js',
-#    },
-#}
+PIPELINE_CSS = {
+    'application': {
+        'source_filenames': (
+            'sass/main.sass',
+        ),
+        'output_filename': 'main.css',
+    },
+}
+PIPELINE_JS = {
+    'application': {
+        'source_filenames': (
+            'coffee/second.coffee',
+            'coffee/main.coffee',
+        ),
+        'output_filename': 'main.js',
+    },
+}
 
 PIPELINE_COFFEE_SCRIPT_ARGUMENTS = "-b"
 STATICFILES_STORAGE = 'pipeline.storage.PipelineCachedStorage'
