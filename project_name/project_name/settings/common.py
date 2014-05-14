@@ -90,6 +90,7 @@ THIRD_PARTY_APPS = (
 
 # Apps specific for this project go here.
 LOCAL_APPS = (
+    'application',
 )
 
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#installed-apps
@@ -290,7 +291,7 @@ TEMPLATE_CONTEXT_PROCESSORS = (
     'django.core.context_processors.media',
     'django.core.context_processors.static',
     'cms.context_processors.media',
-    'sekizai.context_processors.sekizai', 
+    'sekizai.context_processors.sekizai',
 )
 CMS_TEMPLATES = (
     ('base.html', 'Base Template'),
