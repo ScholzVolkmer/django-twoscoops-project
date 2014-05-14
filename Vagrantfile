@@ -2,7 +2,7 @@
 # vi: set ft=ruby :
 
 
-  
+
 Vagrant.configure("2") do |config|
   # All Vagrant configuration is done here. The most common configuration
   # options are documented and commented below. For a complete reference,
@@ -21,7 +21,7 @@ Vagrant.configure("2") do |config|
   # within the machine from a port on the host machine. In the example below,
   # accessing "localhost:8080" will access port 80 on the guest machine.
   config.vm.network :forwarded_port, guest: 8000, host: 8000
-  config.vm.synced_folder ".", "/vagrant", type: "rsync", rsync__exclude: [".git/","{{project_name}}/media/*", "*coffee/*.js", "*sass/*.css"]
+  config.vm.synced_folder ".", "/vagrant", type: "rsync", rsync__exclude: [".git/","{{project_name}}/media/*", "*coffee/*.js", "*sass/*.css","./idea"]
 
   #config.vm.synced_folder ".", "/vagrant", :nfs => true
   # Create a private network, which allows host-only access to the machine
@@ -91,7 +91,7 @@ Vagrant.configure("2") do |config|
     chef.add_recipe "mysql-databases"
     chef.add_recipe "git"
     chef.add_recipe "python"
-    chef.add_recipe "supervisor::vagrant"  
+    chef.add_recipe "supervisor::vagrant"
     #	   # You may also specify custom JSON attributes:
     chef.json = {
       "mysql" => {
@@ -138,7 +138,7 @@ Vagrant.configure("2") do |config|
   #
   #   chef.validation_client_name = "ORGNAME-validator"
   config.vm.provision :shell, :inline => "sudo initctl emit vagrant-mounted"
-  
+
   config.vm.provision :chef_solo do |chef|
     chef.add_recipe "{{project_name}}"
   end
