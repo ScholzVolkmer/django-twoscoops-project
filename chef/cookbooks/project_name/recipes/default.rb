@@ -1,5 +1,5 @@
 include_recipe "python"
-include_recipe "supervisor"
+include_recipe "supervisor::vagrant"
 
 
 apt_package "virtualenvwrapper" do
