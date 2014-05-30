@@ -50,3 +50,15 @@ Desktop.ini
 
 #ninja
 *.nja
+
+# settings
+/{{project_name}}/{{project_name}}/settings/users/*
+
+# static
+/{{project_name}}/application/static/sass/*.css
+/{{project_name}}/application/static/sass/.sass-cache/*
+/{{project_name}}/application/static/coffee/*.js
+/{{project_name}}/application/static/coffee/lib/*.js
+
+#misc
+Berksfile.lock
