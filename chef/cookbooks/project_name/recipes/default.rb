@@ -108,7 +108,7 @@ supervisor_service "runserver" do
   action :enable
   autostart true
   user "vagrant"
-  command "#{venv_python} #{manage_py} runserver 0.0.0.0:8000"
+  command "#{venv_python} #{manage_py} runserver_plus 0.0.0.0:8000"
   stopsignal "KILL"
   startretries 10
   stopwaitsecs 1
