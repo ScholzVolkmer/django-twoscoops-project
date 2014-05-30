@@ -7,7 +7,7 @@
  fi
 mv $1/.vagrant .
 rm -rf $1
-django-admin.py startproject --template=../ -n Vagrantfile,default.rb,metadata.rb,Berksfile,.gitignore -e html $1
+django-admin.py startproject --template=../ -n Vagrantfile,default.rb,metadata.rb,Berksfile,.gitignore -e html,erb $1
 
 # move the directories back
 mv .vagrant $1/

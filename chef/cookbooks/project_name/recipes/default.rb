@@ -54,6 +54,14 @@ apt_package "coffeescript" do
   action :install
 end
 
+apt_package "mc" do
+  action :install
+end
+
+apt_package "vim" do
+  action :install
+end
+
 directory "/home/vagrant/.virtualenvs" do
   owner "vagrant"
   group "vagrant"
@@ -104,4 +112,11 @@ supervisor_service "runserver" do
   stopsignal "KILL"
   startretries 10
   stopwaitsecs 1
+end
+
+template "/home/vagrant/.profile" do
+  source "profile.erb"
+  mode 0644
+  owner "vagrant"
+  group "vagrant"
 end
