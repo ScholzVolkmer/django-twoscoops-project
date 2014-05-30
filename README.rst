@@ -1,5 +1,5 @@
 ========================
-django chef+vagrant project template
+vachango: django chef+vagrant project template
 ========================
 
 General integration of Vagrant, Chef and django project templates. The point of the project is to automate development
