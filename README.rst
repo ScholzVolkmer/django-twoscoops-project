@@ -1,9 +1,9 @@
 ========================
-django chef vagrant project template
+django chef+vagrant project template
 ========================
 
-General integration Vagrant, Chef and django project templates. The point of the project is to automate development
-tasks, needed to start working django project in Vagrant.
+General integration of Vagrant, Chef and django project templates. The point of the project is to automate development
+routine, needed to start working django project in Vagrant.
 
 Workflow:
 ========================
@@ -17,7 +17,6 @@ all the git crumbles (this logics is to change in the future)
 Prerequisites
 ================
 - Vagrant (last version)
-- Bash (lol)
 - Django (if you have multiple python projects or django versions, probably you will need virtualenv) and
 django-admin.py reachable from future project directory
 - Git
@@ -33,17 +32,18 @@ Execute it :)
 
 This takes much time (10-15 min), so get a drink ;)
 
-Runserver
+Configuring Vagrant and Chef
 ================
+Download Vagrant 1.5.2 (newer versions are not supported by berkshelf plugin, possibly obsolete): http://www.vagrantup.com/download-archive/v1.5.2.html
+Install plugins:
+- `vagrant plugin install vagrant-omnibus`
+- `vagrant plugin install vagrant-berkshelf --plugin-version '>= 2.0.1'`
+- for back rsyncing: `vagrant plugin install vagrant-rsync-back`
+Remove Berksfile.lock and .vagrant
 
-- `cd <project_name>`
-- `vagrant ssh`
-- `cd /vagrant`
-- `source source shared/env/bin/activate`
-- `python <project_name>/manage.py runserver 0.0.0.0:8000`
-
-From host check normal `127.0.0.1:8000`. Should show basic template (static files still does not work :()
-**Note** that by default this command is already executed under supervisor
+start: vagrant up
+update: vagrant provision
+stop: vagrant provision
 
 Related projects and docs
 ================
@@ -59,14 +59,7 @@ Misc
 - Theoretically, after some upcoming changes (for example new python requirements), you just need to perform `vagrant provision`
 and vagrant updates the dependencies
 
-Known Issues
-================
-
-- Development server does not reload the code on change (gunicorn?)
-- Everything is so freaking slow
-
 Acknowledgements
 ================
 
 - Forked from django-twoscoops-project
-- Many thanks to Randall Degges for the inspiration to write the book and django-skel.

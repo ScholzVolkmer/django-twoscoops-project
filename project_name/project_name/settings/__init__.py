@@ -22,13 +22,13 @@ def deep_update(from_dict, to_dict):
         elif key in merge_keys:
             if not key in to_dict:
                 to_dict[key] = ()
-            to_dict[key] = to_dict[key] + from_dict[key]
+            to_dict[key] = from_dict[key] + to_dict[key]
         else:
             to_dict[key] = value
 
 # this should be one of prod, qa, staging, dev. Default to dev for safety.
 env = os.environ.get('APP_SETTINGS', False)
-uid = ''
+users_settings = ''
 
 modules = [DEFAULT]
 if env:
@@ -36,8 +36,8 @@ if env:
     modules.append(env+"_custom")
 else:
     # try to load user specific settings
-    uid = pwd.getpwuid(os.getuid())[0]
-    modules.append(uid)
+    users_settings = os.path.join("users", pwd.getpwuid(os.getuid())[0])
+    modules.append(users_settings)
 
 
 current = __name__
@@ -48,7 +48,7 @@ for module_name in modules:
         logger.exception('Unable to import {0} configuration: {1}'.format(module_name, e))
         raise
     except AttributeError, e:
-        if module_name == uid:
+        if module_name == users_settings:
             logger.debug("user settings not found or error loading it")
         elif env and module_name == env+"_custom":
             logger.debug("custom env settings not found or error loading it")

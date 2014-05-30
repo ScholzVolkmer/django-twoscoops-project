@@ -56,36 +56,37 @@ DJANGO_APPS = (
     'django.contrib.sites',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-
     # Useful template tags:
     # 'django.contrib.humanize',
 
     # Admin panel and documentation:
+    'djangocms_admin_style',
     'django.contrib.admin',
     # 'django.contrib.admindocs',
 )
 
 THIRD_PARTY_APPS = (
     'south',
+    'pipeline',
     'cms',
     'mptt',
     'menus',
     'sekizai',
     'reversion',
     'djangocms_text_ckeditor',
-    'djangocms_teaser',
-    'djangocms_inherit',
-    'djangocms_picture',
-    'djangocms_video',
-    'djangocms_link',
+    'django_extensions',
+    #'djangocms_teaser',
+    #'djangocms_inherit',
+    #'djangocms_picture',
+    #'djangocms_video',
+    #'djangocms_link',
     'filer',
-    'pipeline',
     'easy_thumbnails',
-    'cmsplugin_filer_file',
-    'cmsplugin_filer_folder',
-    'cmsplugin_filer_image',
-    'cmsplugin_filer_teaser',
-    'cmsplugin_filer_video',
+    #'cmsplugin_filer_file',
+    #'cmsplugin_filer_folder',
+    #'cmsplugin_filer_image',
+    #'cmsplugin_filer_teaser',
+    #'cmsplugin_filer_video',
 )
 
 # Apps specific for this project go here.
@@ -167,7 +168,7 @@ LOGGING = {
             'class': 'django.utils.log.AdminEmailHandler'
         },
         'logfile': {
-            'level': 'DEBUG',
+            'level': 'ERROR',
             'class': 'logging.handlers.RotatingFileHandler',
             'filename': os.path.join(PROJECT_DIR, os.pardir, "logs", SITE_NAME + ".log"),
             'maxBytes': 500000,
@@ -252,7 +253,7 @@ PIPELINE_JS = {
 }
 
 PIPELINE_COFFEE_SCRIPT_ARGUMENTS = "-b"
-STATICFILES_STORAGE = 'pipeline.storage.PipelineCachedStorage'
+STATICFILES_STORAGE = 'pipeline.storage.PipelineStorage'
 
 
 THUMBNAIL_PROCESSORS = (

@@ -68,6 +68,8 @@ python_virtualenv "/home/vagrant/.virtualenvs/env" do
   action :create
 end
 
+venv_python = "/home/vagrant/.virtualenvs/env/bin/python"
+manage_py = "/vagrant/{{project_name}}/manage.py"
 
 python_pip "/vagrant/requirements.txt" do
   Chef::Log.info("Create virtualenv")
@@ -75,16 +77,22 @@ python_pip "/vagrant/requirements.txt" do
   action :install_requirements
 end
 
-execute "/home/vagrant/.virtualenvs/env/bin/python  /vagrant/{{project_name}}/manage.py syncdb --noinput --migrate" do
+execute "#{venv_python} #{manage_py} syncdb --noinput --migrate" do
   Chef::Log.info("Migration/syncdb")
   user 'vagrant'
   group 'vagrant'
 end
 
-execute "/home/vagrant/.virtualenvs/env/bin/python /vagrant/{{project_name}}/manage.py loaddata /vagrant/{{project_name}}/fixtures/superuser.json" do
+execute "#{venv_python} #{manage_py} loaddata /vagrant/{{project_name}}/fixtures/superuser.json" do
   Chef::Log.info("Creating django@django superuser")
   user 'vagrant'
   group 'vagrant'
+end
+
+execute "#{venv_python} #{manage_py} collectstatic --noinput" do
+  Chef::Log.info("Collectstatic")
+  user "jenkins"
+  group "jenkins"
 end
 
 supervisor_service "runserver" do
@@ -92,6 +100,8 @@ supervisor_service "runserver" do
   action :enable
   autostart true
   user "vagrant"
-  command "/home/vagrant/.virtualenvs/env/bin/python /vagrant/{{project_name}}/manage.py runserver 0.0.0.0:8000"
-  autorestart true
+  command "#{venv_python} #{manage_py} runserver 0.0.0.0:8000"
+  stopsignal "KILL"
+  startretries 10
+  stopwaitsecs 1
 end
