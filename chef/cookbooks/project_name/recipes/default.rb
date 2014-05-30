@@ -91,8 +91,8 @@ end
 
 execute "#{venv_python} #{manage_py} collectstatic --noinput" do
   Chef::Log.info("Collectstatic")
-  user "jenkins"
-  group "jenkins"
+  user "vagrant"
+  group "vagrant"
 end
 
 supervisor_service "runserver" do
