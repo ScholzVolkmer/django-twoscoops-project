@@ -15,6 +15,10 @@
         "server_repl_password": "password",
         "server_debian_password": "password"
     },
+    "{{project_name}}": {
+        "user": "jenkins",
+        "environment": "staging"
+    },
     "databases": {
         "create": ["{{project_name}}"],
         "grant": [
