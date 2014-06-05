@@ -38,7 +38,7 @@ web_app "{{project_name}}" do
   wsgi_script_alias "#{root}{{project_name}}/{{project_name}}/wsgi/#{environment}.py"
   static_alias "#{root}{{project_name}}/static"
   media_alias "#{root}{{project_name}}/media"
-  user '#{main_user}'
+  user "#{main_user}"
   log_dir "#{root}logs"
 end
 
