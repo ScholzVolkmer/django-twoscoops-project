@@ -87,6 +87,8 @@ Also here is json job sketch you would create to serve the project
 
 Of course your jenkins should be almighty.
 
+If you want to test your server setup you can use Vagrantfile_servertest, which works on the port 8000 and has chef provisioning disabled. You can configure it like it were a server.
+
 Related projects and docs
 ================
 - Vagrant: http://docs.vagrantup.com/v2/. Last releases: http://www.vagrantup.com/downloads.html
