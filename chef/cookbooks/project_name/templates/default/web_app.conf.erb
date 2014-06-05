@@ -1,0 +1,19 @@
+<VirtualHost *:<%= @params[:server_port] || node['apache']['listen_ports'].first %>>
+    ServerAdmin <%= @params[:server_admin] %>
+    ServerName <%= @params[:server_name] %>
+
+    DocumentRoot <%= @params[:docroot] %>
+    ErrorLog <%= @params[:log_dir] %>/error.log
+    CustomLog <%= @params[:log_dir] %>/access.log combined
+    HostnameLookups Off 
+    UseCanonicalName Off 
+    ServerSignature Off 
+
+    WSGIScriptReloading On
+    WSGIProcessGroup <%= @params[:name] %>
+    WSGIDaemonProcess <%= @params[:name] %> display-name=<%= @params[:name] %> user=<%= @params[:user] %> processes=4 threads=8
+    WSGIScriptAlias / <%= @params[:wsgi_script_alias] %>
+
+    Alias /static "<%= @params[:static_alias] %>"
+    Alias /media "<%= @params[:media_alias] %>"
+</VirtualHost>

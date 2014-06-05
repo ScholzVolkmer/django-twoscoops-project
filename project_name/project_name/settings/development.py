@@ -1,6 +1,5 @@
-SITE_ID = 2
+SITE_ID = 1
 DEBUG = False
-ALLOWED_HOSTS = ("staging",)
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',

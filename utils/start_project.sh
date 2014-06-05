@@ -1,5 +1,5 @@
-#!/bin/sh
+#!/bin/bash
 django-admin.py startproject --template=https://github.com/ScholzVolkmer/vachango/archive/develop.zip\
- -n Vagrantfile,default.rb,metadata.rb,Berksfile,.gitignore -e html,erb $1
+ -n Vagrantfile,Makefile,Vagrantfile_servertest,Berksfile,.gitignore -e html,erb,rst,json,bat,rb,py $1
 cd $1
 vagrant up
