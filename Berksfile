@@ -1,7 +1,8 @@
-site :opscode
+source "http://api.berkshelf.com"
 
 cookbook 'build-essential'
 cookbook 'database'
+cookbook 'apache2'
 cookbook 'mysql', git: 'https://github.com/ScholzVolkmer/mysql.git'
 cookbook 'python', git: 'https://github.com/ScholzVolkmer/python.git'
 #cookbook 'python', path: '/home/sergey/PycharmProjects/chef/python'
