@@ -28,9 +28,11 @@ Start project
 Copy utils/start_project.sh script somewhere, you want to start the django project.
 Execute it :)
 
-`sh start_project.sh <project_name>`
+`sh start_project.sh {{project_name}}`
 
 This takes much time (10-15 min), so get a drink ;)
+
+**Attention**: mysql user name will be the same as project name by default, but due to mysql limits it must be shorter than 16 symbols.
 
 Configuring Vagrant and Chef
 ================
@@ -48,23 +50,29 @@ start: vagrant up
 update: vagrant provision
 stop: vagrant provision
 
-Server part
+Server
 ================
 
+* Change database password in `{{project_name}}/settings/<env_name>.py` and `chef/<env_name>.json` to some secret values (and put in repo)
+* Change ALLOWED_HOSTS to your host name in `{{project_name}}/settings/<env_name>.py`
+* Change domain sites in `{{project_name}}/application/fixtures/initial_data.json` to your domains
+* Set raven token if you use sentry in `{{project_name}}/settings/<env_name>.py`
 * Install chef-kit with utils/install_chef_kit.sh using sudo. It installs all the binaries needed by chef and chef-kit itself (chef-solo, berkshelf etc)
 * Perform berkshelf vendoring:
 
     berks vendor ./chef/berkshelf
 
-* perform chef provisioning with
+* cd to chef directory and perform chef provisioning with
 
-    sudo chef-solo -c solo.rb -j solo.json
+    sudo chef-solo -c solo.rb -j <env_name>.json
 
-**Heads up!** Don't forget to change passwords in solo.json to which you want or even disable auto configuration of mysql or other components.
+<env_name> is production or staging or whatever.
+
+**Heads up!** Don't forget to change passwords in <env_name>.json to which you want or even disable auto configuration of mysql or other components.
 
 Also here is json job sketch you would create to serve the project
 
-    cd /home/web/project_name/site/include
+    cd /home/web/{{project_name}}/site/include
     git checkout master
     git stash
     git pull
@@ -73,10 +81,11 @@ Also here is json job sketch you would create to serve the project
        berks vendor ./chef/berkshelf
     fi
     cd chef
-    sudo chef-solo -c solo.rb -j solo.json
+    sudo chef-solo -c solo.rb -j <env_name>.json
     cd -
-    touch project_name/project_name/settings/production.py
+    touch {{project_name}}/{{project_name}}/settings/production.py
 
+Of course your jenkins should be almighty.
 
 Related projects and docs
 ================
