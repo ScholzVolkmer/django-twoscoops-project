@@ -1,6 +1,6 @@
 include_recipe "python"
 include_recipe "supervisor"
-include_recipe "chef_server_test::default"
+include_recipe "{{project_name}}::default"
 
 directory "/home/vagrant/.virtualenvs" do
   owner "vagrant"
