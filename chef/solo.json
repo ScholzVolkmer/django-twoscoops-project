@@ -1,0 +1,28 @@
+{
+    "run_list": [ 
+        "recipe[apt]",
+        "recipe[mysql::server]",
+        "recipe[database::mysql]",
+        "recipe[mysql-databases]",
+        "recipe[git]",
+        "recipe[python]",
+        "recipe[apache2]",
+        "recipe[apache2::mod_wsgi]",
+        "recipe[chef_server_test::server]"
+    ],
+    "mysql" : {
+        "server_root_password" : "password",
+        "server_repl_password" : "password",
+        "server_debian_password" : "password"
+        }, /*to change*/
+    "databases" : {
+        "create" : ["chef"],
+        "grant" : [
+        {
+                    "user" : "chef",
+                    "password" : "password",
+                    "host" : "localhost"
+                    }
+                    ]
+        }
+}
