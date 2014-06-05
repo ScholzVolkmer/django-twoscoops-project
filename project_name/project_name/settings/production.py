@@ -1,12 +1,12 @@
-SITE_ID = 2
+SITE_ID = 3
 DEBUG = False
 ALLOWED_HOSTS = ("production",)
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'production',
-        'USER': 'production',
-        'PASSWORD': 'XXX',
+        'NAME': '{{project_name}}',
+        'USER': '{{project_name}}',
+        'PASSWORD': 'password',
         'HOST': ''
     }
 }
