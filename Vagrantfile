@@ -140,6 +140,6 @@ Vagrant.configure("2") do |config|
   config.vm.provision :shell, :inline => "sudo initctl emit vagrant-mounted"
 
   config.vm.provision :chef_solo do |chef|
-    chef.add_recipe "{{project_name}}"
+    chef.add_recipe "{{project_name}}::vagrant"
   end
 end
