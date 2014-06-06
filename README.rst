@@ -5,15 +5,6 @@ vachango: django chef+vagrant project template
 General integration of Vagrant, Chef and django project templates. The point of the project is to automate development
 routine, needed to start working django project in Vagrant.
 
-Workflow:
-========================
-- git gets the development (?) version of this repository and updates all the submodules
-- django-admin.py startproject command builds the project using the template structure of the repository and cleans
-all the git crumbles (this logics is to change in the future)
-- git initializes the repository in the new project, makes initial commit with all the files
-- creates vagrant instance with vagrant up
-- provisions vagrant with vagrant provision
-
 Prerequisites
 ================
 - Vagrant (last version)
@@ -21,18 +12,6 @@ Prerequisites
 - Git
 - Virtualbox
 - Ubuntu 12.04 (server)
-
-Start project
-================
-
-Copy utils/start_project.sh script somewhere, you want to start the django project.
-Execute it :)
-
-`sh start_project.sh {{project_name}}`
-
-This takes much time (10-15 min), so get a drink ;)
-
-**Attention**: mysql user name will be the same as project name by default, but due to mysql limits it must be shorter than 16 symbols.
 
 Configuring Vagrant and Chef
 ================
@@ -44,11 +23,26 @@ Install plugins:
 - `vagrant plugin install vagrant-berkshelf --plugin-version '>= 2.0.1'`
 - for back rsyncing: `vagrant plugin install vagrant-rsync-back`
 
-Remove Berksfile.lock and .vagrant
+Remove Berksfile.lock and .vagrant if they are already there somehow.
 
-start: vagrant up
-update: vagrant provision
-stop: vagrant provision
+Start project
+================
+
+Copy utils/start_project.sh script somewhere, you want to start the django project.
+Execute it :)
+
+`sh start_project.sh {{project_name}}`
+
+Actually it's nothing more than big django startproject command:
+
+    django-admin.py startproject --template=https://github.com/ScholzVolkmer/vachango/archive/develop.zip \
+    -n Vagrantfile,Makefile,Vagrantfile_servertest,Berksfile,.gitignore -e html,erb,rst,json,bat,rb,py $1
+
+Make needed editions and then say `vagrant up` to create a vagrant instance.
+
+This takes much time (10-15 min), so get a drink ;)
+
+**Attention**: mysql user name will be the same as project name by default, but due to mysql limits it must be shorter than 16 symbols.
 
 Server
 ================
